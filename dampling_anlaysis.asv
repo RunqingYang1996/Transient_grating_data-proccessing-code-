@@ -1,0 +1,26 @@
+t=data35_5(100:499,1);
+signall=data35_5(100:499,2);
+ssignal=spline(t, signall, t)
+f = fit(t,signall,'smoothingspline','SmoothingParam',0.9999906426046482);
+plot(f,data35_5(100:499,1),ssignal);
+hold on
+difference =feval(f, t);
+
+xlabel('Time');
+ylabel('Difference');
+title('Difference between Signal Data and Fitting');
+hold on
+[upper_env, lower_env] = envelope(data35_5(100:499,2));
+plot(t, upper_env,'*');
+hold on 
+plot(t, lower_env,'*');
+hold on
+plot(t, upper_env-lower_env,'^');
+xlabel('Time');
+ylabel('Upper Envelope');
+title('Upper Envelope of the Difference');
+signalenv35_5=data35_5(100:499,:);
+signalenv35_5(:,1)=t;
+realev=upper_env-lower_env
+signalenv35_5(:,2)=realev;
+realmodi=realev
